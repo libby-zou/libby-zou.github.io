@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Realm — Portfolio</title>
+<meta name="description" content="An adventure-map portfolio: projects, experience, skills and contact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME
+   ============================================================ */
+:root{
+  --cork:#e9dfc9; --cork-dark:#d6c8aa;
+  --wood:#6a5a8c; --wood-dark:#3f3763; --wood-light:#8d7fb5;
+  --paper:#fdf8ee; --paper-edge:#efe3c8; --ink:#2f2a45; --ink-soft:#6b6485;
+  --gold:#ecc879; --ruby:#d98ba0; --sapphire:#6c9bd2; --emerald:#7fb69a; --amethyst:#a68bd6;
+  --sea:#a9d0e8; --sea-dark:#86b8d6; --land:#f7efdc; --grass:#cfe3b4;
+  --pin:#d98ba0;
+  --shadow:0 2px 0 rgba(40,30,80,.06), 0 12px 26px rgba(40,30,90,.22);
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:#2c2752}
+body{
+  font-family:"Nunito",system-ui,sans-serif; color:var(--ink);
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 47% 22%, #fff8d9 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 12%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 81% 6%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 92% 26%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 6% 40%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 72% 36%, #fff 50%, transparent 51%),
+    radial-gradient(ellipse at 50% 120%, #f6c9d6 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 70%, rgba(166,139,214,.45) 0%, transparent 50%),
+    linear-gradient(180deg,#2c2752 0%, #4c4486 40%, #8a78b8 75%, #d7b6d0 100%);
+  min-height:100vh; line-height:1.55;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1200px; margin:0 auto; padding:24px 20px 60px}
+[hidden]{display:none !important}
+.view{animation:fade .35s ease}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}}
+
+/* ============================================================
+   HANGING SIGN
+   ============================================================ */
+.sign-area{display:flex; justify-content:center; position:relative; padding-top:30px; margin-bottom:22px}
+.sign-area::before,.sign-area::after{content:""; position:absolute; top:0; width:3px; height:38px; background:#241f3d}
+.sign-area::before{left:calc(50% - 150px)} .sign-area::after{left:calc(50% + 147px)}
+.sign{
+  background:linear-gradient(180deg,var(--wood-light),var(--wood));
+  border:4px solid var(--wood-dark); border-radius:14px;
+  padding:12px 34px 14px; text-align:center; color:#fdf3dc; max-width:100%;
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.08), 0 12px 24px rgba(0,0,0,.35);
+  animation:sway 6s ease-in-out infinite; transform-origin:top center;
+}
+.sign h1{font-family:"Cormorant Garamond",serif; font-weight:700; margin:0; font-size:clamp(26px,5vw,44px); letter-spacing:.5px; text-shadow:0 3px 0 var(--wood-dark)}
+.sign p{margin:2px 0 0; font-family:"Caveat",cursive; font-size:21px; color:#f3e3b0}
+@keyframes sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+
+/* ============================================================
+   BUTTONS / CHIPS / TAGS (shared)
+   ============================================================ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  text-decoration:none; font-weight:800; font-size:14px; border-radius:8px; padding:9px 12px;
+  border:2px solid var(--wood-dark); background:#fffaf0; color:var(--ink); cursor:pointer;
+  box-shadow:0 3px 0 var(--wood-dark); transition:transform .1s, box-shadow .1s; font-family:inherit;
+}
+.btn:hover{transform:translateY(-1px); box-shadow:0 4px 0 var(--wood-dark)}
+.btn:active{transform:translateY(2px); box-shadow:0 1px 0 var(--wood-dark)}
+.btn.primary{background:var(--gold)}
+.btn svg{width:16px; height:16px}
+.chip{
+  border:2px solid #d9cfe9; background:#fff; border-radius:20px; padding:5px 12px; font-family:inherit;
+  font-weight:700; font-size:13.5px; cursor:pointer; color:var(--ink); text-decoration:none;
+}
+.chip[aria-pressed="true"],.chip[aria-current="page"]{background:var(--wood); border-color:var(--wood); color:#fdf3dc}
+.tags{display:flex; flex-wrap:wrap; gap:5px}
+.tag{font-size:12.5px; font-weight:800; background:#efe6f6; border-radius:4px; padding:2px 8px; border:none; font-family:inherit; color:var(--ink)}
+button.tag{cursor:pointer} button.tag:hover{background:var(--gold)}
+.parchment{
+  background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px;
+  position:relative; box-shadow:var(--shadow), inset 0 0 40px rgba(150,130,200,.18);
+}
+.hand{font-family:"Caveat",cursive; font-weight:700; color:var(--wood)}
+.section-label{font-family:"Caveat",cursive; font-size:24px; font-weight:700; margin:12px 0 6px; color:var(--wood)}
+
+/* ============================================================
+   WORLD MAP
+   ============================================================ */
+.map-frame{
+  background:var(--wood-dark); padding:12px; border-radius:10px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45), inset 0 0 0 3px #241f3d;
+}
+.map-scroll{overflow-x:auto; border-radius:6px; -webkit-overflow-scrolling:touch}
+.map-scroll svg{display:block; width:100%; min-width:760px; height:auto; background:#a9d0e8}
+.map-hint{color:#fff; text-shadow:0 1px 6px rgba(40,30,90,.8); text-align:center; font-family:"Caveat",cursive; font-size:21px; margin:10px 0 0}
+.node{cursor:pointer}
+#worldMap .halo{paint-order:stroke fill; stroke:#fdf8ee; stroke-width:5px; stroke-linejoin:round; stroke-opacity:.95}
+#worldMap .halo-sea{paint-order:stroke fill; stroke:#eef7fc; stroke-width:6px; stroke-linejoin:round; stroke-opacity:.95}
+.node .medal{transition:transform .2s ease; transform-box:fill-box; transform-origin:center}
+.node:hover .medal,.node:focus-visible .medal{transform:scale(1.12)}
+.node:focus{outline:none}
+.node:focus-visible .ring{stroke:var(--gold); stroke-width:6}
+.node .label-bg{transition:fill .2s}
+.node:hover .label-bg,.node:focus-visible .label-bg{fill:var(--gold)}
+.pulse{animation:ringpulse 2.2s ease-out infinite; transform-box:fill-box; transform-origin:center}
+@keyframes ringpulse{0%{transform:scale(1); opacity:.7}100%{transform:scale(1.7); opacity:0}}
+.trail{stroke-dasharray:1 10; animation:march 1.6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-22}}
+.bob2{animation:bob 3.2s ease-in-out infinite}
+#hero{transition:transform .65s cubic-bezier(.45,.05,.3,1)}
+#hero .bob{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.waves path{animation:drift 7s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateX(14px)}}
+
+.fast-travel{margin-top:20px}
+.fast-travel h2{color:#fff; text-shadow:0 2px 10px rgba(40,30,90,.8); font-family:"Cormorant Garamond",serif; font-weight:700; font-size:22px; margin:0 0 10px; text-align:center}
+.ft-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px}
+.ft{
+  display:flex; gap:12px; align-items:center; text-decoration:none; background:var(--paper);
+  border-radius:10px; padding:12px; box-shadow:var(--shadow); transition:transform .15s;
+}
+.ft:hover{transform:translateY(-3px)}
+.ft .icon{font-size:26px; width:48px; height:48px; flex:none; display:grid; place-items:center; border-radius:50%; background:#efe6f6; border:2px solid var(--wood-light)}
+.ft b{display:block; font-size:15px}
+.ft span{font-size:13px; color:var(--ink-soft); font-weight:600}
+.ft .check{margin-left:auto; color:var(--emerald); font-weight:800}
+.recruiter-bar{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;
+  background:rgba(251,241,220,.95); border-radius:10px; padding:10px 14px; margin-bottom:16px; box-shadow:var(--shadow);
+}
+.recruiter-bar span{font-weight:800; font-size:14px}
+
+/* ============================================================
+   SUB-PAGE CHROME
+   ============================================================ */
+.topbar{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+  background:rgba(251,241,220,.95); border-radius:10px; padding:10px 12px; margin-bottom:18px; box-shadow:var(--shadow);
+}
+.topnav{display:flex; flex-wrap:wrap; gap:6px}
+.page-head{display:flex; justify-content:center; margin-bottom:20px}
+.banner{
+  background:var(--ruby); color:#fff; font-family:"Cormorant Garamond",serif; font-size:clamp(24px,4vw,34px);
+  padding:8px 34px; position:relative; box-shadow:0 5px 0 #b0687e; text-align:center;
+}
+.banner::before,.banner::after{
+  content:""; position:absolute; top:10px; width:30px; height:100%; background:#c27a90; z-index:-1;
+}
+.banner::before{left:-22px; clip-path:polygon(0 0,100% 0,100% 100%,0 100%,30% 50%)}
+.banner::after{right:-22px; clip-path:polygon(0 0,100% 0,70% 50%,100% 100%,0 100%)}
+.page-head{position:relative; z-index:0}
+.lead{color:#fff6dc; text-shadow:0 1px 8px rgba(40,30,90,.8); text-align:center; font-family:"Caveat",cursive; font-size:22px; margin:-8px 0 18px}
+.next-stop{display:flex; justify-content:space-between; gap:10px; margin-top:26px; flex-wrap:wrap}
+
+.board{
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,.06) 0 1px, transparent 2px) 0 0/9px 9px,
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,.08) 0 1px, transparent 2px) 0 0/13px 13px,
+    linear-gradient(135deg,var(--cork),var(--cork-dark));
+  border:14px solid var(--wood-dark);
+  border-image:linear-gradient(135deg,#8d7fb5,#3f3763) 1;
+  box-shadow:inset 0 0 30px rgba(0,0,0,.35), 0 18px 40px rgba(0,0,0,.4);
+  padding:22px;
+}
+
+/* ============================================================
+   ABOUT (Home Village)
+   ============================================================ */
+.about-grid{display:grid; grid-template-columns:310px 1fr; gap:22px; align-items:start}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+.guild-card{
+  background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 20px 20px; position:relative;
+  background-image:linear-gradient(transparent 95%, rgba(130,110,170,.08) 95%); background-size:100% 28px;
+}
+.guild-card .ribbon{
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  background:var(--ruby); color:#fff; font-weight:800; font-size:12px; letter-spacing:1.5px;
+  padding:5px 16px; border-radius:3px; text-transform:uppercase; white-space:nowrap; box-shadow:0 3px 0 #b0687e;
+}
+.avatar{
+  width:100px; height:100px; margin:8px auto 10px; border-radius:50%;
+  display:grid; place-items:center; font-family:"Cormorant Garamond",serif; font-size:38px; color:#fff;
+  background:conic-gradient(from 200deg,var(--amethyst),var(--sapphire),var(--emerald),var(--gold),var(--amethyst));
+  border:4px solid #fff; box-shadow:0 0 0 3px var(--wood-light); overflow:hidden;
+}
+.avatar img{width:100%; height:100%; object-fit:cover}
+.guild-card h2{font-family:"Cormorant Garamond",serif; font-weight:700; text-align:center; margin:0; font-size:26px}
+.guild-card .class{text-align:center; color:var(--ink-soft); font-weight:700; margin:0 0 6px}
+.level{display:flex; justify-content:center; gap:6px; font-size:13px; font-weight:700; margin-bottom:12px; flex-wrap:wrap}
+.level span{background:#efe6f6; border-radius:20px; padding:2px 10px}
+.status{
+  text-align:center; background:#e3f3e6; color:#25683b; border:2px dashed #7cc28f;
+  border-radius:8px; padding:8px; font-weight:800; font-size:14px; margin-bottom:14px;
+}
+.status .dot{display:inline-block; width:9px; height:9px; border-radius:50%; background:#2fae55; margin-right:6px; animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,174,85,.6)}70%{box-shadow:0 0 0 8px rgba(47,174,85,0)}100%{box-shadow:0 0 0 0 rgba(47,174,85,0)}}
+.links{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px}
+.links .full{grid-column:1/-1}
+.contact-text{font-size:12px; text-align:center; color:var(--ink-soft); margin-top:8px; word-break:break-all}
+.story p{font-size:16px; margin:0 0 12px}
+.story h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:26px; margin:0 0 8px}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-top:6px}
+.fact{background:#f3ecf8; border-radius:8px; padding:10px 12px; font-size:14px}
+.fact b{display:block; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft)}
+
+/* ============================================================
+   JOURNEY LOG (timeline)
+   ============================================================ */
+.timeline{position:relative; max-width:820px; margin:0 auto; padding-left:46px}
+.timeline::before{
+  content:""; position:absolute; left:20px; top:6px; bottom:6px; width:0;
+  border-left:5px dotted #f3e3b0;
+}
+.stop{position:relative; margin-bottom:22px}
+.stop .marker{
+  position:absolute; left:-46px; top:12px; width:42px; height:42px; border-radius:50%;
+  display:grid; place-items:center; font-size:20px; background:var(--paper); border:3px solid var(--wood-light);
+  box-shadow:0 3px 0 var(--wood-dark);
+}
+.stop .when{font-size:12px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink-soft)}
+.stop h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:22px; margin:2px 0 0; line-height:1.15}
+.stop .where{font-weight:700; color:var(--wood); margin-bottom:6px}
+.stop ul{margin:6px 0 0; padding-left:20px}
+.stop li{font-size:15px}
+.stop .kind{position:absolute; top:14px; right:16px}
+
+/* ============================================================
+   SKILL TREE
+   ============================================================ */
+.tree{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px}
+.branch h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:22px; margin:0 0 10px; display:flex; gap:8px; align-items:center}
+.skill-list{display:flex; flex-direction:column; gap:8px}
+.skill{
+  display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;
+  background:#fffdf8; border:2px solid #ddd0ee; border-radius:10px; padding:8px 12px;
+  font-family:inherit; font-size:15px; font-weight:800; color:var(--ink); cursor:pointer; text-align:left;
+}
+.skill:hover{border-color:var(--gold); background:#fbf3dd}
+.skill small{font-weight:700; color:var(--ink-soft); font-size:12.5px; white-space:nowrap}
+.skill[disabled]{cursor:default; opacity:.85}
+.skill[disabled]:hover{border-color:#ddd0ee; background:#fffdf8}
+.skill-note{color:#fff; text-shadow:0 1px 6px rgba(40,30,90,.8); font-weight:700; text-align:center; font-size:14px; margin-top:16px}
+
+/* ============================================================
+   QUEST BOARD
+   ============================================================ */
+.board-top{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:18px}
+.tally{flex:1 1 130px; background:var(--paper); border-radius:var(--radius); padding:10px 14px; box-shadow:var(--shadow); text-align:center; transform:rotate(var(--r,0deg))}
+.tally b{display:block; font-family:"Cormorant Garamond",serif; font-weight:700; font-size:30px; line-height:1.1}
+.tally span{font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--ink-soft)}
+.filters{background:rgba(251,241,220,.94); border-radius:var(--radius); padding:12px; box-shadow:var(--shadow); margin-bottom:22px; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.filters input{flex:1 1 200px; padding:9px 12px; border-radius:8px; border:2px solid #d9cfe9; background:#fff; font-family:inherit; font-size:15px; color:var(--ink)}
+.filter-row{display:flex; flex-wrap:wrap; gap:6px; width:100%}
+.filter-row small{font-weight:800; color:var(--ink-soft); align-self:center; margin-right:4px; font-size:12px; text-transform:uppercase; letter-spacing:1px}
+.quests{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:30px 22px; padding-top:8px}
+.quest-wrap{position:relative}
+.quest{
+  position:relative; background:var(--paper); border-radius:2px; padding:26px 18px 16px;
+  box-shadow:var(--shadow); transform:rotate(var(--tilt,0deg)); cursor:pointer; text-align:left;
+  border:none; font-family:inherit; color:inherit; width:100%; height:100%;
+  transition:transform .2s ease;
+  clip-path:polygon(0 2%,6% 0,20% 1.5%,38% 0,55% 1%,72% 0,88% 1.6%,100% 0,99.4% 30%,100% 62%,99% 100%,80% 98.8%,60% 100%,40% 99%,18% 100%,0 99%,.8% 70%,0 35%);
+}
+.quest::after{content:""; position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 28px rgba(150,130,200,.25)}
+.quest:hover,.quest:focus-visible{transform:rotate(0deg) translateY(-6px) scale(1.02); z-index:2}
+.pin{position:absolute; top:-6px; left:50%; width:18px; height:18px; margin-left:-9px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ffd1dc,var(--pin) 55%,#b0687e); box-shadow:0 3px 3px rgba(0,0,0,.35); z-index:3}
+.rank{position:absolute; top:10px; right:12px; width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  font-family:"Cormorant Garamond",serif; font-size:22px; color:#fff; background:var(--rank-color);
+  box-shadow:inset 0 -4px 0 rgba(0,0,0,.2), 0 0 0 3px rgba(255,255,255,.6); transform:rotate(-12deg)}
+.rank small{position:absolute; bottom:-14px; font-family:"Nunito"; font-size:9px; font-weight:800; color:var(--ink-soft); letter-spacing:1px}
+.quest .kicker{font-size:11.5px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-soft)}
+.quest h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:24px; margin:2px 0 6px 0; line-height:1.15}
+.quest p.summary{font-size:14.5px; margin:0 0 12px; color:#4a4466}
+.quest .tags{margin-bottom:12px}
+.quest-foot{display:flex; justify-content:space-between; align-items:center; border-top:2px dashed #ddd0ee; padding-top:10px; font-size:13px; font-weight:700}
+.reward{font-family:"Caveat",cursive; font-size:19px; color:var(--wood)}
+.badge-status{font-size:11.5px; font-weight:800; padding:3px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:.8px}
+.st-complete{background:#e3f3e6; color:#25683b}
+.st-progress{background:#fbf3dd; color:#8a5a00}
+.st-legendary{background:#f1e4fb; color:#6a3a94}
+.stamp{position:absolute; bottom:44px; right:10px; transform:rotate(-14deg); border:3px solid var(--stamp,#2f8a4d); color:var(--stamp,#2f8a4d);
+  border-radius:6px; padding:1px 8px; font-weight:800; font-size:13px; letter-spacing:2px; opacity:.55; text-transform:uppercase; pointer-events:none}
+.st-planned{background:#eee6fb; color:#5b4a8c}
+.badge-status{white-space:nowrap}
+.quest-foot{gap:8px}
+.reward{white-space:nowrap}
+.quest.planned{background:
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(166,139,214,.14) 27px 28px),
+    #fbf8ff;}
+.quest.planned::before{content:""; position:absolute; inset:8px; border:2px dashed #c9b9ea; pointer-events:none}
+.quest.planned h3{font-style:italic}
+.seal{position:absolute; top:-10px; left:50%; width:28px; height:28px; margin-left:-14px; border-radius:50%; z-index:3;
+  display:grid; place-items:center; color:#fff; font-size:13px;
+  background:radial-gradient(circle at 35% 35%,#c9b2f0,#8d6cc9 70%); box-shadow:0 3px 4px rgba(40,30,90,.35), inset 0 -2px 0 rgba(0,0,0,.15)}
+.board-divider{grid-column:1/-1; text-align:center; margin:14px 0 -4px; padding:12px 16px; background:rgba(253,248,238,.88);
+  border-radius:12px; box-shadow:var(--shadow); border:1.5px dashed #c9b9ea}
+.board-divider h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:26px; margin:0; color:#3f3763}
+.board-divider p{margin:2px 0 0; font-size:14px; color:var(--ink-soft); font-weight:600}
+.empty{grid-column:1/-1; text-align:center; background:var(--paper); padding:30px; border-radius:var(--radius); font-weight:700}
+
+/* ============================================================
+   TROPHIES
+   ============================================================ */
+.trophy-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:18px}
+.trophy{text-align:center; padding:24px 16px 18px}
+.trophy .icon{font-size:40px; width:78px; height:78px; margin:0 auto 10px; display:grid; place-items:center; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff3c9,#f0c95b); border:4px solid #fff; box-shadow:0 0 0 3px var(--gold), 0 6px 14px rgba(0,0,0,.2)}
+.trophy b{display:block; font-size:17px}
+.trophy span{font-size:13.5px; color:var(--ink-soft); font-weight:600}
+.trophy p{font-size:14px; margin:8px 0 0}
+
+/* ============================================================
+   TAVERN (contact)
+   ============================================================ */
+.tavern{max-width:720px; margin:0 auto; text-align:center}
+.tavern .mug{font-size:56px}
+.tavern h3{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:28px; margin:4px 0 6px}
+.tavern .actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0 8px}
+.tavern .email{font-weight:800; font-size:18px; word-break:break-all}
+.notice{background:#f3ecf8; border-radius:8px; padding:12px 14px; text-align:left; margin-top:16px; font-size:15px}
+
+/* ============================================================
+   MODAL (quest scroll)
+   ============================================================ */
+.overlay{position:fixed; inset:0; background:rgba(30,24,60,.6); display:none; place-items:center; padding:20px; z-index:50; backdrop-filter:blur(3px)}
+.overlay.open{display:grid; animation:fade .2s ease}
+.scroll{
+  width:min(720px,100%); max-height:90vh; overflow:auto; background:var(--paper); border-radius:8px; position:relative; padding:34px 34px 28px;
+  border-top:16px solid var(--wood-light); border-bottom:16px solid var(--wood-light);
+  box-shadow:0 30px 60px rgba(0,0,0,.5), inset 0 0 50px rgba(150,130,200,.25); animation:unroll .35s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes unroll{from{transform:scaleY(.2); opacity:0}}
+.close{position:absolute; top:10px; right:12px; width:38px; height:38px; border-radius:50%; border:2px solid var(--wood-dark); background:#fffaf0; font-size:20px; font-weight:800; cursor:pointer; color:var(--ink)}
+.scroll .kicker{padding-right:44px; font-size:12px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-soft)}
+.scroll h2{font-family:"Cormorant Garamond",serif; font-weight:700; font-size:clamp(26px,4vw,34px); margin:4px 50px 10px 0; line-height:1.1}
+.meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:16px 0}
+.meta div{background:#f3ecf8; border-radius:8px; padding:8px 10px}
+.meta small{display:block; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft)}
+.meta b{font-size:14.5px}
+.scroll h4{font-family:"Caveat",cursive; font-size:25px; margin:18px 0 4px; color:var(--wood)}
+.scroll p,.scroll li{font-size:15.5px}
+.scroll ul{padding-left:20px; margin:6px 0}
+.loot li::marker{content:"✦  "; color:var(--gold)}
+.scroll .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.shot{width:100%; border-radius:6px; border:3px solid #fff; box-shadow:var(--shadow); margin:8px 0; display:block}
+
+footer{text-align:center; color:#4a4470; font-weight:700; margin-top:34px; font-size:14px}
+
+/* ============================================================
+   WHIMSY LAYER
+   ============================================================ */
+.sky-fx{position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden}
+.wrap{position:relative; z-index:1}
+.mote{position:absolute; top:-20px; opacity:0; animation:fall linear infinite; will-change:transform}
+.mote.sparkle{width:6px; height:6px; border-radius:50%; background:#fff6d6; box-shadow:0 0 10px 3px rgba(255,240,200,.8)}
+.mote.petal{width:10px; height:7px; border-radius:70% 0 70% 0; background:linear-gradient(135deg,#ffd9e4,#f2a9c0)}
+@keyframes fall{
+  0%{transform:translate3d(0,-20px,0) rotate(0); opacity:0}
+  10%{opacity:.9}
+  90%{opacity:.8}
+  100%{transform:translate3d(var(--dx,60px),105vh,0) rotate(540deg); opacity:0}
+}
+.twinkle{position:absolute; color:#fff8dc; font-size:12px; animation:twinkle 3s ease-in-out infinite; text-shadow:0 0 8px #fff}
+@keyframes twinkle{0%,100%{opacity:.15; transform:scale(.7)}50%{opacity:1; transform:scale(1.1)}}
+
+.sign{
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
+  border:1.5px solid rgba(255,255,255,.55); border-radius:999px; padding:14px 46px 16px;
+  backdrop-filter:blur(6px); box-shadow:0 0 0 6px rgba(255,255,255,.06), 0 0 40px rgba(246,201,214,.35);
+  animation:float 6s ease-in-out infinite;
+}
+.sign h1{text-shadow:0 2px 18px rgba(255,214,230,.7); color:#fffaf0; font-style:italic}
+.sign-area::before,.sign-area::after{display:none}
+.sign-area{padding-top:6px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.map-frame{background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.4); border-radius:22px; padding:10px; backdrop-filter:blur(4px);
+  box-shadow:0 20px 50px rgba(20,15,50,.45), 0 0 50px rgba(246,201,214,.2)}
+.map-scroll{border-radius:16px}
+.recruiter-bar,.topbar,.filters{background:rgba(253,248,238,.9); border-radius:16px}
+.banner{border-radius:6px; box-shadow:0 5px 0 #b0687e, 0 0 30px rgba(246,201,214,.5); font-style:italic}
+.parchment,.guild-card,.tally,.ft,.trophy{border:1px solid rgba(166,139,214,.25)}
+.board{border-radius:4px}
+.node .medal{filter:drop-shadow(0 0 8px rgba(255,236,190,.85))}
+.spin{animation:spin 40s linear infinite; transform-box:fill-box; transform-origin:center}
+.spin.rev{animation-duration:28s; animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cloud{animation:cloud 30s ease-in-out infinite alternate}
+@keyframes cloud{to{transform:translateX(40px)}}
+.map-twinkle{animation:twinkle 2.6s ease-in-out infinite}
+#hero .glow{animation:glow 2s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.lead{font-size:24px}
+.ft .icon,.trophy .icon,.stop .marker{border-color:#cdbfe8}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+@media (max-width:560px){
+  .board{padding:14px; border-width:8px}
+  .scroll{padding:28px 18px 22px}
+  .parchment{padding:16px}
+  .banner{padding:8px 18px}
+}
+</style>
+</head>
+<body>
+<div class="sky-fx" id="skyFx" aria-hidden="true"></div>
+<div class="wrap">
+
+  <!-- ================= WORLD MAP ================= -->
+  <section class="view" data-view="map" aria-labelledby="realmTitle">
+    <div class="sign-area">
+      <header class="sign">
+        <h1 id="realmTitle">The Realm</h1>
+        <p>✧ a gentle journey through my work ✧</p>
+      </header>
+    </div>
+
+    <div class="recruiter-bar">
+      <span>🍂 Short on time, traveler?</span>
+      <a class="btn" href="#quests">⚔️ See projects</a>
+      <a class="btn primary" id="quickResume" target="_blank" rel="noopener">📜 Résumé</a>
+      <a class="btn" href="#tavern">🏮 Contact</a>
+    </div>
+
+    <div class="map-frame">
+      <div class="map-scroll">
+        <svg id="worldMap" viewBox="0 0 1000 650" role="img" aria-labelledby="mapDesc">
+          <desc id="mapDesc">A fantasy world map. Each landmark is a section of the portfolio, connected by a dotted trail.</desc>
+        </svg>
+      </div>
+      <p class="map-hint">✧ tap a glowing landmark to travel there ✧</p>
+    </div>
+
+    <nav class="fast-travel" aria-label="Fast travel">
+      <h2>✧ Fast Travel ✧</h2>
+      <div class="ft-grid" id="fastTravel"></div>
+    </nav>
+  </section>
+
+  <!-- ================= SUB-PAGES ================= -->
+  <div id="subChrome" hidden>
+    <div class="topbar">
+      <a class="btn primary" href="#map">🗺️ World map</a>
+      <nav class="topnav" id="topnav" aria-label="Destinations"></nav>
+    </div>
+    <div class="page-head"><h1 class="banner" id="pageTitle"></h1></div>
+    <p class="lead" id="pageLead"></p>
+  </div>
+
+  <section class="view" data-view="about" hidden>
+    <div class="about-grid">
+      <aside class="guild-card" id="guildCard" aria-label="Profile"></aside>
+      <div class="parchment story" id="story"></div>
+    </div>
+  </section>
+
+  <section class="view" data-view="journey" hidden>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <section class="view" data-view="skills" hidden>
+    <div class="tree" id="tree"></div>
+    <p class="skill-note">✧ Click a spell to see the quests where I cast it ✧</p>
+  </section>
+
+  <section class="view" data-view="quests" hidden>
+    <div class="board">
+      <div class="board-top" id="tallies"></div>
+      <div class="filters" role="search">
+        <input id="search" type="search" placeholder="🔍  Search quests, skills, tools…" aria-label="Search projects">
+        <div class="filter-row" id="statusFilters"><small>Status</small></div>
+        <div class="filter-row" id="catFilters"><small>Category</small></div>
+        <div class="filter-row" id="tagFilters"><small>Skills</small></div>
+      </div>
+      <div class="quests" id="quests" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="view" data-view="trophies" hidden>
+    <div class="trophy-grid" id="trophies"></div>
+  </section>
+
+  <section class="view" data-view="tavern" hidden>
+    <div class="parchment tavern" id="tavern"></div>
+  </section>
+
+  <div id="nextStop" class="next-stop" hidden></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <article class="scroll" id="scroll"></article>
+</div>
+
+<script>
+/* =====================================================================
+   ✏️  EDIT EVERYTHING IN THIS SECTION TO MAKE THE REALM YOURS
+   ---------------------------------------------------------------------
+     ADVENTURER   – your profile, story, skills and links
+     JOURNEY      – experience & education (the timeline)
+     QUESTS       – your projects (the quest board)
+     ACHIEVEMENTS – awards, certifications, hackathons
+   ===================================================================== */
+
+const ADVENTURER = {
+  name: "Libby Zou",
+  initials: "LZ",
+  photo: "",                          // optional: data: URI, or a file path like "me.jpg" when self-hosting
+  title: "Developer & Game Designer",
+  level: "UNCG · Class of 2028",
+  location: "Greensboro, NC",
+  relocation: "Open to relocating almost anywhere",   // "" hides it
+  lookingFor: "Open to internship opportunities",   // "" hides the green banner
+  bio: "Computer Science + Videogaming/Esports Studies student building at the crossroads of code, AI and games.",
+  story: [                            // a few short paragraphs for your "origin story"
+    "I'm a double major at UNC Greensboro, studying Computer Science (B.S.) and Videogaming/Esports Studies (B.A.) with a minor in Mathematics.",
+    "My journey so far has wandered through research, web development and hackathons: building an LLM-integrated simulation environment as an NSF REU research intern, leading a hackathon team on an AI coach for League of Legends, and designing a game in Unreal Editor for Fortnite that earned a Judge's Choice Award.",
+    "I love collaborating, learning fast and turning feedback into better work. I speak English and Mandarin, and I'm currently learning Korean.",
+  ],
+  facts: [                            // quick facts shown under the story
+    { label: "Main quest", value: "B.S. Computer Science & B.A. Videogaming/Esports Studies" },
+    { label: "GPA", value: "3.94 · Minor in Mathematics" },
+    { label: "Languages", value: "English, Mandarin · learning Korean" },
+    { label: "Studied abroad", value: "Yonsei University, Seoul (Summer 2026)" },
+  ],
+  skills: {                           // grouped skills (no self-ratings!)
+    "Programming Languages": { icon: "📜", list: ["Java", "Python", "JavaScript", "HTML/CSS", "Unix Shell", "Assembly"] },
+    "API Integrations":      { icon: "🔗", list: ["Riot Games API", "OpenAI API"] },   // add more, e.g. "Google Maps API"
+    "Tools & Technologies":  { icon: "🔮", list: ["UEFN", "Spring Boot", "Git/GitHub", "Bootstrap", "Bubble.io", "Postman", "VS Code", "IntelliJ", "NetBeans", "AMPPS", "Excel"] },
+    "Party Skills":          { icon: "🪶", list: ["Collaboration", "Project Management", "Organization", "Clear Communication", "Fast Learner", "Receptive to Feedback"] },
+  },
+  links: {
+    github:   "https://github.com/libby-zou",
+    linkedin: "https://www.linkedin.com/in/libby-zou-442a472a3",
+    resume:   "Libby_Zou_Resume.pdf",   // put your résumé PDF next to this HTML file with this name when you host it
+    email:    "libbzss7@gmail.com",
+  },
+};
+
+/* kind: "work" | "club" | "event" | "education" | "leadership" | "volunteer"
+   start: "YYYY-MM" the stop began. Stops are sorted oldest → newest by this automatically
+          (so the path ends at "Next chapter"), and you can add new ones anywhere in the list. */
+const JOURNEY = [
+  {
+    kind: "work",
+    title: "Undergraduate Research Assistant",
+    org: "Cave of Dreams · UNC Greensboro · Dean's Undergraduate Scholars Program",
+    when: "Incoming · Jan 2027 – Present", start: "2027-01",
+    points: [
+      "Developing the first playable prototype for Cave of Dreams, an interdisciplinary research project exploring how humans and generative AI can co-create meaningful virtual worlds",
+      "Researching and recommending the technical platform for a single-player, text-based game with accompanying music",
+      "Building the game's core code and integrating AI-generated interactions and music",
+      "Testing and refining the player experience, with findings to be presented at an August 2027 research poster session",
+    ],
+  },
+  {
+    kind: "work",
+    title: "Discussion Moderator",
+    org: "Digital Games in Libraries (DGIL) · ALA Games and Gaming Round Table · Virtual",
+    when: "October 2026", start: "2026-10",
+    points: [
+      "Moderated virtual breakout discussions among scholars, game developers, educators and librarians on why and how to preserve video games",
+      "Kept conversations moving with follow-up prompts and reframed questions when participants were unsure how to respond",
+      "Adapted session plans on the fly when turnout fell well below registration (4 attendees from 15+ sign-ups)",
+      "Transcribed discussion notes capturing participants' key insights, the event's main deliverable for organizers",
+    ],
+  },
+  {
+    kind: "education",
+    title: "Summer Study Abroad Program",
+    org: "Yonsei University · Seoul, South Korea",
+    when: "Summer 2026", start: "2026-06",
+    points: [],
+  },
+  {
+    kind: "club",
+    title: "Web Developer",
+    org: "Girls Who Code Club – UNCG Website · Greensboro, NC",
+    when: "Sept 2025 – Dec 2025", start: "2025-09",
+    points: [
+      "Created a responsive About page showcasing headshots and bios for the executive board and development team",
+      "Designed a clean, accessible layout highlighting club leadership, mission and activities for prospective members",
+      "Collaborated with the development team via GitHub, managing version control and iterative site updates",
+    ],
+  },
+  {
+    kind: "work",
+    title: "Research Intern, NSF REU",
+    org: "UNCG GraLNA Lab · Greensboro, NC",
+    when: "May 2025 – July 2025", start: "2025-05",
+    points: [
+      "Developed an LLM-integrated simulation environment to model edge-computing nodes and network performance under realistic workloads",
+      "Designed and ran large-scale simulations to evaluate and optimize scheduling algorithms against deadline constraints",
+      "Documented experimental design, methodology and results, and communicated findings with a faculty advisor and research partner",
+    ],
+  },
+  {
+    kind: "education",
+    title: "B.S. Computer Science & B.A. Videogaming/Esports Studies",
+    org: "University of North Carolina at Greensboro",
+    when: "Currently enrolled · Expected May 2028", start: "2024-08",   // start month only used for sorting
+    points: [
+      "GPA: 3.94 · Minor: Mathematics",
+    ],
+  },
+];
+
+/* status: "complete"  | "progress" (in progress) | "legendary" (featured)
+         | "planned"   (yet to come — an idea you haven't started yet)
+   category: "work" | "club" | "hackathon" | "personal"   (used by the Category filter)
+   For planned quests, use "plan" for the steps you intend to take and
+   "learn" for what you hope to learn; "date" can be a target like "Spring 2027".
+   github: link to the project's repo. Leave "" and the quest shows a link to your GitHub profile instead.
+   Leave any other field as "" or [] to hide it. */
+const QUESTS = [
+  {
+    title: "LoL AI Stats Coach", category: "hackathon", type: "AI Web App · Hackathon", status: "legendary",
+    summary: "An AI stats coach for League of Legends that gives players personalized feedback, built for the Rift Rewind Hackathon.",
+    objective: "Help players improve with coaching based on their own stats, team composition and champion matchups.",
+    whatIDid: [
+      "Designed and created the AI coach using Riot's Data API, delivering feedback on player stats, team composition and champion matchups",
+      "Built the frontend interface and key features in HTML, CSS and JavaScript",
+      "Integrated with a teammate-built Flask backend powered by AWS Bedrock for AI-powered coaching",
+      "Led a team of two, defining project scope, direction and feature priorities",
+    ],
+    loot: [],
+    tags: ["JavaScript", "HTML/CSS", "Riot Games API", "AWS Bedrock", "Flask"],
+    role: "Team of 2 · Team Lead & Frontend", duration: "Hackathon", date: "Oct 2025",
+    github: "", demo: "",
+  },
+  {
+    title: "UEFN Game Jam Game", category: "hackathon", type: "Game · Game Jam", status: "legendary",
+    summary: "A game co-developed in Unreal Editor for Fortnite at UNCG's UEFN Game Jam, winner of the Judge's Choice Award.",
+    objective: "Design and build a polished, fun player experience within the game jam's time limit.",
+    whatIDid: [
+      "Co-developed the game with one teammate, working closely with mentors throughout development",
+      "Led game design, environment design and core gameplay mechanics",
+      "Refined gameplay and presentation based on mentor feedback",
+    ],
+    loot: ["🏅 Judge's Choice Award"],
+    tags: ["UEFN", "Game Design"],
+    role: "Team of 2 · Game Developer & Designer", duration: "Game jam", date: "Apr 2026",
+    github: "", demo: "",
+  },
+  {
+    title: "Edge-Computing Simulation Environment", category: "work", type: "Research · NSF REU", status: "complete",
+    summary: "An LLM-integrated simulation environment for modeling edge-computing nodes and network performance.",
+    objective: "Evaluate and optimize scheduling algorithms for edge computing under realistic workloads and deadlines.",
+    whatIDid: [
+      "Developed the LLM-integrated simulation environment modeling edge nodes and network performance",
+      "Designed and ran large-scale simulations comparing scheduling algorithms against deadline constraints",
+      "Documented methodology and results with a faculty advisor and research partner",
+    ],
+    loot: ["Research experience through the NSF REU program at the UNCG GraLNA Lab"],
+    tags: ["LLMs", "Simulation", "Research"],
+    role: "Research Intern · with a research partner", duration: "3 months", date: "Summer 2025",
+    github: "", demo: "",
+  },
+  {
+    title: "Girls Who Code UNCG Website", category: "club", type: "Website", status: "complete",
+    summary: "A responsive About page for the Girls Who Code club site, introducing its leaders and dev team.",
+    objective: "Strengthen the club's public-facing site and help prospective members get to know its leadership.",
+    whatIDid: [
+      "Created a responsive About page with headshots and bios for the executive board and development team",
+      "Designed a clean, accessible layout for club leadership, mission and activities",
+      "Coordinated iterative updates with the team using Git/GitHub",
+    ],
+    loot: ["Live on the club's public website"],
+    tags: ["HTML/CSS", "Web Development", "Git/GitHub", "Accessibility"],
+    role: "Web Developer · Dev team", duration: "1 semester", date: "Fall 2025",
+    github: "", demo: "",
+  },
+  {
+    title: "AI Pet Health Assessment", category: "hackathon", type: "AI App · HackDuke 2025", status: "complete",
+    summary: "An AI-powered app for early pet health screening and personalized care recommendations, built at HackDuke's AI for Good hackathon.",
+    objective: "Give pet owners an easy way to screen for health concerns early and get care recommendations.",
+    whatIDid: [
+      "Built the health assessment using the OpenAI API",
+      "Developed the frontend and interactive experience in Bubble.io for streamlined input and results visualization",
+    ],
+    loot: ["Built at HackDuke 2025 – AI for Good"],
+    tags: ["OpenAI API", "Bubble.io"],
+    role: "Frontend Developer", duration: "Hackathon", date: "Feb 2025",
+    github: "", demo: "",
+  },
+  {
+    title: "Preventive Self-Care Platform", category: "hackathon", type: "Prototype · Hackathon", status: "complete",
+    summary: "A preventive self-care platform that tracks, predicts and alerts users to potentially destructive behaviors.",
+    objective: "Support earlier intervention for mental health through behavior tracking and timely alerts.",
+    whatIDid: [
+      "Designed and prototyped the platform's tracking, prediction and alert flow",
+      "Defined behavioral indicators and data requirements to support earlier intervention",
+    ],
+    loot: ["🥈 2nd place at the Mental Health Rewired Hackathon"],
+    tags: ["Product Design", "Prototyping"],
+    role: "Developer", duration: "Hackathon", date: "Oct–Nov 2024",
+    github: "", demo: "",
+  },
+
+  {
+    title: "Capybara Cafe", category: "personal", type: "Full-Stack Web App", status: "complete",
+    summary: "A full-stack web app simulating a virtual capybara cafe, where visitors can browse, filter and meet capybaras.",
+    objective: "Create a cozy, engaging way for users to explore and get to know a cafe full of capybaras.",
+    whatIDid: [
+      "Developed the full-stack application end to end",
+      "Designed the frontend with intuitive navigation and interactive filtering",
+      "Built the backend with Spring Boot and AMPPS for data management, user interactions and capybara profiles",
+      "Implemented features for users to add, view and explore capybaras",
+    ],
+    loot: [],
+    tags: ["Java", "Spring Boot", "AMPPS", "Full-Stack"],
+    role: "Solo project · Full-Stack Developer", duration: "", date: "Mar 2025",
+    github: "", demo: "",
+  },
+  /* ---------- ADVENTURES YET TO COME (ideas not started yet) ---------- */
+  {
+    title: "Cave of Dreams", category: "work", type: "Research · AI Game Prototype", status: "planned",
+    summary: "A single-player, text-based game with music where players use generative AI to explore and shape an interactive world.",
+    objective: "Explore how humans and generative AI can collaboratively create virtual worlds that encourage creativity, connection and human flourishing.",
+    plan: [
+      "Research and recommend the best technical platform for the prototype",
+      "Develop the game's underlying code",
+      "Integrate AI-generated interactions and music",
+      "Test the experience and present a research poster in August 2027",
+    ],
+    learn: ["Designing gameplay around generative AI", "Building a playable prototype from the ground up"],
+    tags: ["Generative AI", "Game Design", "Research"],
+    role: "Undergraduate Research Assistant", duration: "", date: "Jan 2027",
+    github: "", demo: "",
+  },
+  {
+    title: "Project Idea #1", category: "personal", type: "Idea", status: "planned",
+    summary: "Replace this with a short description of a project you want to build.",
+    objective: "What problem will it solve, or what will it let people do?",
+    plan: ["First step you plan to take", "Second step", "Stretch goal"],
+    learn: ["A skill or tool you want to learn from it"],
+    tags: [],   // e.g. ["Python", "UEFN"]
+    role: "Solo project", duration: "", date: "Spring 2027",
+    github: "", demo: "",
+  },
+  {
+    title: "Project Idea #2", category: "personal", type: "Idea", status: "planned",
+    summary: "Another idea waiting on the board. Edit or delete this one.",
+    objective: "",
+    plan: ["What you'd build first"],
+    learn: [],
+    tags: [],
+    role: "", duration: "", date: "",
+    github: "", demo: "",
+  },
+];
+
+const ACHIEVEMENTS = [
+  { icon: "🏅", title: "Judge's Choice Award", detail: "UEFN Game Jam · April 2026", note: "For a game co-developed in Unreal Editor for Fortnite." },
+  { icon: "🥈", title: "2nd Place", detail: "Mental Health Rewired Hackathon · 2024", note: "For a preventive self-care platform prototype." },
+  { icon: "🔬", title: "NSF REU Research Intern", detail: "UNCG GraLNA Lab · Summer 2025", note: "Edge-computing scheduling research with LLM-integrated simulations." },
+  { icon: "🎓", title: "3.94 GPA", detail: "UNCG · double major + Math minor", note: "" },
+  { icon: "🌏", title: "Study Abroad", detail: "Yonsei University, Seoul · Summer 2026", note: "" },
+];
+
+/* Skill buttons on the Quest Board. Keep these broad: each button shows every
+   quest whose tags include ANY of the names listed after it.
+   Buttons that match no quests are hidden automatically. */
+const SKILL_FILTERS = [
+  ["JavaScript",      ["JavaScript"]],
+  ["HTML/CSS",        ["HTML/CSS"]],
+  ["Java",            ["Java", "Spring Boot"]],
+  ["Python",          ["Python"]],
+  ["AI & LLMs",       ["OpenAI API", "AWS Bedrock", "LLMs", "Generative AI"]],
+  ["APIs",            ["Riot Games API", "OpenAI API", "AWS Bedrock"]],
+  ["Full-Stack",      ["Full-Stack"]],
+  ["Web Development", ["Web Development", "HTML/CSS", "Full-Stack"]],
+  ["Game Design",     ["Game Design", "UEFN"]],
+  ["Research",        ["Research", "Simulation"]],
+  ["UX & Prototyping",["Product Design", "Prototyping", "Accessibility"]],
+  ["Git/GitHub",      ["Git/GitHub"]],
+];
+
+/* =====================================================================
+   🔧 ENGINE ROOM — no need to edit below unless you want to tinker
+   ===================================================================== */
+
+/* Map destinations, in trail order. x/y are positions on the 1000×650 map. */
+const REGIONS = [
+  { id:"about",    name:"Meadow Cottage",    icon:"🌸", x:210, y:452, blurb:"Who I am & where I started",   lead:"where the road first began" },
+  { id:"journey",  name:"Wanderer's Path",   icon:"🍃", x:300, y:318, blurb:"Experience & education",       lead:"every place I've stopped along the way" },
+  { id:"skills",   name:"Grimoire Library",  icon:"📖", x:475, y:470, blurb:"Spells (skills) I've learned", lead:"spells collected over many seasons" },
+  { id:"quests",   name:"Quest Board",       icon:"🪄", x:612, y:278, blurb:"My projects", lead:"adventures in code: completed, ongoing & soon to come", main:true },
+  { id:"trophies", name:"Starlit Shrine",    icon:"✨", x:815, y:178, blurb:"Awards & certifications",      lead:"small treasures worth remembering" },
+  { id:"tavern",   name:"Lantern Inn",       icon:"🏮", x:804, y:448, blurb:"Get in touch",                 lead:"rest a while — let's talk" },
+];
+const RMAP = Object.fromEntries(REGIONS.map(r => [r.id, r]));
+
+const STATUS = {
+  complete:{label:"Completed",cls:"st-complete",stamp:"Cleared",stampColor:"#2f8a4d"},
+  progress:{label:"In Progress",cls:"st-progress",stamp:"",stampColor:""},
+  legendary:{label:"Featured",cls:"st-legendary",stamp:"Featured",stampColor:"#7b45a8"},
+  planned:{label:"Yet to come",cls:"st-planned",stamp:"",stampColor:""},
+};
+const KIND = { event:["🎙️","Event"], club:["🤝","Club"], work:["💼","Work"], education:["🎓","Education"], leadership:["🚩","Leadership"], volunteer:["💛","Volunteer"] };
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl = u => /^(https?:|data:image\/|[\w./-]+$)/i.test(u || "") ? u : "";
+const store = {
+  get(k, d){ try { return JSON.parse(sessionStorage.getItem(k)) ?? d; } catch { return d; } },
+  set(k, v){ try { sessionStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+const visited = new Set(store.get("realm-visited", []));
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const ICONS = {
+  github:'<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
+  linkedin:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>',
+};
+
+/* ---------------------------------------------------------------
+   MAP ART — little drawing helpers
+   --------------------------------------------------------------- */
+const NS = "http://www.w3.org/2000/svg";
+const INK = "#4f4673";
+function rng(seed){
+  return () => { seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+const f1 = n => n.toFixed(1);
+
+function peak(x, y, s=1, snow=true){
+  const h = 46*s, w = 34*s;
+  return `<g>
+    <ellipse cx="${f1(x)}" cy="${f1(y+2)}" rx="${f1(w*1.05)}" ry="${f1(5*s)}" fill="#5b5080" opacity=".12"/>
+    <path d="M${f1(x-w)} ${y} L${x} ${f1(y-h)} L${f1(x+w)} ${y} Z" fill="#dcd6ee"/>
+    <path d="M${x} ${f1(y-h)} L${f1(x+w)} ${y} L${f1(x+w*.12)} ${y} Q${f1(x+w*.1)} ${f1(y-h*.45)} ${x} ${f1(y-h)} Z" fill="#aea6d0"/>
+    ${snow ? `<path d="M${f1(x-w*.3)} ${f1(y-h*.7)} L${x} ${f1(y-h)} L${f1(x+w*.3)} ${f1(y-h*.7)} L${f1(x+w*.14)} ${f1(y-h*.76)} L${f1(x+w*.02)} ${f1(y-h*.66)} L${f1(x-w*.12)} ${f1(y-h*.76)} Z" fill="#fff"/>` : ""}
+    <path d="M${f1(x-w)} ${y} L${x} ${f1(y-h)} L${f1(x+w)} ${y}" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M${f1(x+w*.42)} ${f1(y-h*.3)} l${f1(-w*.12)} ${f1(h*.2)} M${f1(x+w*.62)} ${f1(y-h*.18)} l${f1(-w*.1)} ${f1(h*.14)} M${f1(x-w*.5)} ${f1(y-h*.12)} l${f1(w*.08)} ${f1(h*.1)}" stroke="${INK}" stroke-width="1.1" opacity=".45" stroke-linecap="round"/>
+  </g>`;
+}
+const range = list => list.slice().sort((a,b) => a[1]-b[1]).map(([x,y,s,snow]) => peak(x,y,s,snow !== false)).join("");
+
+function roundTree(x, y, s, c){
+  return `<g transform="translate(${f1(x)} ${f1(y)}) scale(${s.toFixed(2)})">
+    <ellipse cy="2" rx="9" ry="3" fill="#5b5080" opacity=".15"/>
+    <rect x="-1.6" y="-5" width="3.2" height="7" fill="#8a6f8e"/>
+    <circle cy="-12" r="9.5" fill="${c}" stroke="${INK}" stroke-width="1.6"/>
+    <circle cx="-3.2" cy="-15" r="3" fill="#fff" opacity=".35"/></g>`;
+}
+function pineTree(x, y, s, c="#7fae95"){
+  return `<g transform="translate(${f1(x)} ${f1(y)}) scale(${s.toFixed(2)})">
+    <ellipse cy="2" rx="8" ry="2.6" fill="#5b5080" opacity=".15"/>
+    <rect x="-1.5" y="-4" width="3" height="6" fill="#8a6f8e"/>
+    <path d="M0 -29 L8 -15 L4.5 -15 L11 -3 L-11 -3 L-4.5 -15 L-8 -15 Z" fill="${c}" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/></g>`;
+}
+function forest(cx, cy, rx, ry, n, seed, pinesShare=.45){
+  const R = rng(seed), greens = ["#9fcc96","#8cbf8f","#b5d8a2","#f2b8c8"], out = [];
+  for (let i = 0; i < n; i++){
+    const a = R()*Math.PI*2, d = Math.sqrt(R());
+    out.push([cx + Math.cos(a)*rx*d, cy + Math.sin(a)*ry*d, .7 + R()*.4, R() < pinesShare, i]);
+  }
+  return out.sort((a,b) => a[1]-b[1]).map(([x,y,s,p,i]) =>
+    p ? pineTree(x,y,s, i%5 ? "#7fae95" : "#93bfa5") : roundTree(x,y,s, greens[i % (i%7 ? 3 : 4)])).join("");
+}
+function house(x, y, s=1, roof="#d98ba0"){
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <ellipse cy="3" rx="16" ry="3.5" fill="#5b5080" opacity=".15"/>
+    <rect x="5" y="-25" width="4" height="9" fill="#cfc6e3" stroke="${INK}" stroke-width="1.4"/>
+    <rect x="-11" y="-13" width="22" height="15" fill="#fffaf0" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M-15 -12 L0 -26 L15 -12 Z" fill="${roof}" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <rect x="1" y="-7" width="6" height="9" rx="3" fill="#8d7fb5"/>
+    <rect x="-8" y="-9" width="5" height="5" fill="#ffe7a3" stroke="${INK}" stroke-width="1"/></g>`;
+}
+function tower(x, y, s=1, roof="#8aa9de"){
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <ellipse cy="3" rx="14" ry="3.5" fill="#5b5080" opacity=".15"/>
+    <rect x="-9" y="-34" width="18" height="36" fill="#f3eff9" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M-12 -33 L0 -54 L12 -33 Z" fill="${roof}" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <rect x="-2.5" y="-24" width="5" height="8" rx="2.5" fill="#ffe7a3" stroke="${INK}" stroke-width="1"/>
+    <path d="M0 -54 V-64 L10 -60.5 L0 -57" fill="#f5a3bf" stroke="${INK}" stroke-width="1.3" stroke-linejoin="round"/></g>`;
+}
+function lanternPost(x, y){
+  return `<g transform="translate(${x} ${y})">
+    <circle cx="8" cy="-17" r="9" fill="#ffe7a3" opacity=".7" filter="url(#soft)"/>
+    <line y2="-24" stroke="${INK}" stroke-width="2"/><path d="M0 -23 h9" stroke="${INK}" stroke-width="2" fill="none"/>
+    <rect x="5" y="-21" width="6" height="8" rx="2" fill="#f5b971" stroke="${INK}" stroke-width="1.2"/></g>`;
+}
+function flowers(cx, cy, n=7, spread=40){
+  const cols = ["#f5a3bf","#ffffff","#b9a3e8","#ffe08a","#a9d0e8"];
+  let out = "";
+  for (let i = 0; i < n; i++){
+    const a = i*2.399, r = spread*Math.sqrt((i+.5)/n);
+    out += `<g transform="translate(${f1(cx+Math.cos(a)*r)} ${f1(cy+Math.sin(a)*r*.6)})"><circle r="3" fill="${cols[i%cols.length]}" stroke="#8d7fb5" stroke-width=".8"/><circle r="1" fill="#ffe08a"/></g>`;
+  }
+  return out;
+}
+function cloud(x, y, s=1){
+  return `<g data-sea="1" class="cloud"><g transform="translate(${x} ${y}) scale(${s})" opacity=".92">
+    <ellipse rx="34" ry="13" fill="#fff"/><ellipse cx="-15" cy="-8" rx="16" ry="12" fill="#fff"/>
+    <ellipse cx="12" cy="-12" rx="19" ry="15" fill="#fff"/>
+    <path d="M-34 2 Q0 12 34 2" fill="none" stroke="#c9d9ee" stroke-width="2"/></g></g>`;
+}
+function serpent(x, y){
+  return `<g data-sea="1" transform="translate(${x} ${y})" stroke="${INK}" stroke-width="1.7" stroke-linejoin="round">
+    <path d="M6 0 q10 -20 20 0 Z" fill="#c4b0ec"/><path d="M34 0 q8 -15 16 0 Z" fill="#c4b0ec"/><path d="M58 0 q6 -10 12 0 Z" fill="#c4b0ec"/>
+    <path d="M-12 1 Q-15 -14 -5 -19 Q6 -22 6 -12 Q2 -8 0 1 Z" fill="#c4b0ec"/>
+    <circle cx="-3" cy="-14" r="1.7" fill="${INK}" stroke="none"/><path d="M-12 -8 q-5 1 -7 -2" fill="none"/>
+    <path d="M-18 4 q45 6 96 0" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2"/></g>`;
+}
+function boat(x, y){
+  return `<g data-sea="1" transform="translate(${x} ${y})"><g class="bob2">
+    <path d="M-18 0 L18 0 L12 8 L-12 8 Z" fill="#d8b99a" stroke="${INK}" stroke-width="1.7" stroke-linejoin="round"/>
+    <line y1="0" y2="-28" stroke="${INK}" stroke-width="1.7"/>
+    <path d="M1.5 -26 L16 -4 L1.5 -4 Z" fill="#fffaf0" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M-1.5 -21 L-12 -4 L-1.5 -4 Z" fill="#f5c7d5" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M-24 11 q12 4 24 0 t24 0" fill="none" stroke="#fff" stroke-width="1.8" opacity=".85"/></g></g>`;
+}
+function compassRose(x, y){
+  return `<g data-sea="1" transform="translate(${x} ${y}) scale(.82)">
+    <circle r="38" fill="#fdf8ee" fill-opacity=".9" stroke="${INK}" stroke-width="2"/>
+    <circle r="32" fill="none" stroke="${INK}" stroke-width="1" stroke-dasharray="2 3"/>
+    <g transform="rotate(45)"><path d="M0 -24 L4 -4 L24 0 L4 4 L0 24 L-4 4 L-24 0 L-4 -4 Z" fill="#e3d6f3" stroke="${INK}" stroke-width="1.3" stroke-linejoin="round"/></g>
+    <path d="M-33 0 L0 -5 L33 0 L0 5 Z" fill="#cfc6e3" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M0 -34 L5.5 0 L0 34 L-5.5 0 Z" fill="#f2b8c8" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M0 -34 L5.5 0 L0 0 Z M0 34 L-5.5 0 L0 0 Z" fill="#d98ba0"/>
+    <circle r="4" fill="#ecc879" stroke="${INK}" stroke-width="1.4"/>
+    <text x="0" y="-43" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="18" fill="#2f2a45" class="halo-sea">N</text><text x="0" y="56" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="18" fill="#2f2a45" class="halo-sea">S</text><text x="50" y="6" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="18" fill="#2f2a45" class="halo-sea">E</text><text x="-50" y="6" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="18" fill="#2f2a45" class="halo-sea">W</text></g>`;
+}
+function magicCircle(x, y){
+  const ticks = Array.from({length:24}, (_,i) => { const a = i*15*Math.PI/180, r2 = i%3 ? 62 : 67;
+    return `<line x1="${f1(x+Math.cos(a)*58)}" y1="${f1(y+Math.sin(a)*58)}" x2="${f1(x+Math.cos(a)*r2)}" y2="${f1(y+Math.sin(a)*r2)}"/>`; }).join("");
+  const star = Array.from({length:6}, (_,i) => { const a = (i*60-90)*Math.PI/180; return `${f1(x+Math.cos(a)*56)},${f1(y+Math.sin(a)*56)}`; });
+  return `<g stroke="#a98fe0" fill="none" stroke-width="1.6" opacity=".9">
+    <g class="spin"><circle cx="${x}" cy="${y}" r="62"/><circle cx="${x}" cy="${y}" r="56" stroke-dasharray="2 5"/>${ticks}</g>
+    <g class="spin rev"><polygon points="${star[0]} ${star[2]} ${star[4]}"/><polygon points="${star[1]} ${star[3]} ${star[5]}"/></g></g>`;
+}
+function frameBorder(){
+  let segs = "";
+  const seg = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${INK}" opacity=".7"/>`;
+  for (let x = 14, i = 0; x < 986; x += 20, i++) if (i % 2 === 0){ const w = Math.min(20, 986 - x); segs += seg(x, 6, w, 8) + seg(x, 636, w, 8); }
+  for (let y = 14, i = 0; y < 636; y += 20, i++) if (i % 2 === 0){ const h = Math.min(20, 636 - y); segs += seg(6, y, 8, h) + seg(986, y, 8, h); }
+  const corner = (x, y) => `<g transform="translate(${x} ${y})"><rect x="-10" y="-10" width="20" height="20" fill="#fdf8ee" stroke="${INK}" stroke-width="1.6"/><path d="M0 -6 L6 0 L0 6 L-6 0 Z" fill="#d98ba0" stroke="${INK}" stroke-width="1.2"/></g>`;
+  return `<g data-sea="1"><rect x="6" y="6" width="988" height="638" fill="none" stroke="${INK}" stroke-width="1.6"/>
+    <rect x="14" y="14" width="972" height="622" fill="none" stroke="${INK}" stroke-width="1.2"/>
+    ${segs}${corner(10,10)}${corner(990,10)}${corner(10,640)}${corner(990,640)}</g>`;
+}
+
+/* smooth curve through points (Catmull-Rom → cubic Bézier) */
+function trailPath(pts){
+  let d = `M${pts[0].x} ${pts[0].y}`;
+  for (let i = 0; i < pts.length - 1; i++){
+    const p0 = pts[i-1] || pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2] || p2;
+    d += ` C${f1(p1.x + (p2.x - p0.x)/6)} ${f1(p1.y + (p2.y - p0.y)/6)} ${f1(p2.x - (p3.x - p1.x)/6)} ${f1(p2.y - (p3.y - p1.y)/6)} ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+
+/* ---------------------------------------------------------------
+   WORLD MAP
+   --------------------------------------------------------------- */
+const LAND = "M80,420 C55,330 110,250 190,222 C250,120 380,88 480,118 C560,58 700,66 790,96 C885,88 955,170 935,262 C962,342 945,432 905,505 C862,585 740,612 640,582 C560,622 430,616 350,592 C250,612 140,582 100,522 C70,490 85,455 80,420 Z";
+
+function renderMap(){
+  const svg = document.getElementById("worldMap");
+  const land = LAND;
+  const pts = REGIONS.map(r => ({x:r.x, y:r.y}));
+
+  // probe path used to scatter details only where they belong
+  const probe = document.createElementNS(NS, "path");
+  probe.setAttribute("d", land); probe.setAttribute("fill", "none"); probe.setAttribute("visibility", "hidden");
+  svg.appendChild(probe);
+  const pt = svg.createSVGPoint();
+  const onLand = (x, y) => { pt.x = x; pt.y = y; return probe.isPointInFill(pt); };
+  const ring = (x, y, r) => [0,45,90,135,180,225,270,315].every(a => onLand(x + Math.cos(a*Math.PI/180)*r, y + Math.sin(a*Math.PI/180)*r));
+  const nearSea = (x, y, r) => [0,45,90,135,180,225,270,315].some(a => onLand(x + Math.cos(a*Math.PI/180)*r, y + Math.sin(a*Math.PI/180)*r));
+  const keepOut = [ // rectangles kept clear of scattered details: [x1,y1,x2,y2]
+    ...REGIONS.map(r => [r.x-80, r.y-(r.main?75:48), r.x+80, r.y+(r.main?82:74)]),
+    [595,432,725,508], [290,462,435,486], [540,398,645,420], [380,570,580,600], [230,172,430,198],
+  ];
+  const clear = (x, y) => !keepOut.some(([a,b,c,d]) => x > a && x < c && y > b && y < d);
+
+  // sea wave marks
+  const R = rng(7); let waves = "";
+  const seaKeep = [[330,24,680,70],[40,90,230,175],[880,30,990,95],[910,520,995,630],[20,540,110,630]];
+  for (let i = 0, n = 0; i < 400 && n < 26; i++){
+    const x = 30 + R()*940, y = 30 + R()*590;
+    if (onLand(x,y) || nearSea(x,y,34) || seaKeep.some(([a,b,c,d]) => x>a && x<c && y>b && y<d)) continue;
+    waves += `<path d="M${f1(x)} ${f1(y)} q5 -5 10 0 q5 -5 10 0" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.8" stroke-linecap="round"/>`; n++;
+  }
+  // grass tufts on land
+  let tufts = "";
+  for (let i = 0, n = 0; i < 900 && n < 70; i++){
+    const x = 70 + R()*880, y = 80 + R()*530;
+    if (!ring(x,y,16) || !clear(x,y)) continue;
+    tufts += `<path d="M${f1(x)} ${f1(y)} l-2.5 -5 M${f1(x)} ${f1(y)} l0 -6.5 M${f1(x)} ${f1(y)} l2.5 -5" stroke="#9cbf8a" stroke-width="1.3" stroke-linecap="round" fill="none"/>`; n++;
+  }
+  probe.remove();
+
+  const deco = [
+    // Moonpeak Range (north-west) and Misty Peaks (centre-east)
+    range([[230,292,.85],[268,262,1.1],[312,250,.8],[356,262,1],[398,286,.8],[250,300,.65,false],[420,240,.7],[208,272,.7,false]]),
+    range([[700,402,.75],[742,380,1.05],[784,398,.8],[725,415,.6,false],[770,420,.6,false]]),
+    range([[905,315,.7],[880,300,.55,false]]),
+    // Whispering Woods around the library, plus small groves
+    forest(395,550,40,26,13,11), forest(560,548,42,26,13,12), forest(160,300,32,26,10,13,.7),
+    forest(470,175,48,22,12,14), forest(905,410,22,24,6,15),
+    forest(735,540,40,20,9,18,.2),
+    // flower meadows
+    flowers(215,540,14,46), flowers(820,525,12,42), flowers(300,560,6,24), flowers(640,190,6,26), flowers(250,420,4,18),
+    // Meadow Cottage village
+    house(155,550,.9,"#d98ba0"), house(275,548,.85,"#8aa9de"), house(228,585,.75,"#ecc879"),
+    // Quest Board town
+    house(520,300,.8,"#a68bd6"), house(706,248,.8,"#d98ba0"), tower(704,320,.85,"#ecc879"), house(535,250,.7,"#ecc879"),
+    // Starlit Shrine
+    tower(880,198,1), tower(752,150,.8,"#b9a3e8"),
+    // Lantern Inn
+    lanternPost(760,470), lanternPost(870,470), house(890,445,.8,"#f5b971"),
+  ].join("");
+
+  const nodes = REGIONS.map(r => {
+    const Rr = r.main ? 40 : 32, done = visited.has(r.id);
+    const lw = Math.round(r.name.length * 8.8 + 36), lh = 28, x0 = r.x - lw/2, y0 = r.y + Rr + 10;
+    const tail = (side) => {
+      const xa = side < 0 ? x0 - 13 : x0 + lw + 13, xb = side < 0 ? x0 + 8 : x0 + lw - 8, notch = side < 0 ? xa + 6 : xa - 6;
+      return `<path d="M${xb} ${y0+6} L${xa} ${y0+6} L${notch} ${y0+6+lh/2} L${xa} ${y0+6+lh} L${xb} ${y0+6+lh} Z" fill="#cdbfe8" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round" class="${side < 0 ? "tail-l" : "tail-r"}"/>`;
+    };
+    return `<a class="node" href="#${r.id}" data-region="${r.id}" aria-label="${esc(r.name)}: ${esc(r.blurb)}">
+      ${r.main ? `<circle class="pulse" cx="${r.x}" cy="${r.y}" r="${Rr+6}" fill="none" stroke="#ecc879" stroke-width="5"/>` : ""}
+      <g class="medal">
+        <circle cx="${r.x}" cy="${r.y}" r="${Rr+10}" fill="#fff3c9" opacity=".55" filter="url(#soft)"/>
+        <circle cx="${r.x}" cy="${r.y+4}" r="${Rr}" fill="#3f3763" opacity=".3"/>
+        <circle class="ring" cx="${r.x}" cy="${r.y}" r="${Rr}" fill="url(#medalFill)" stroke="${r.main ? "#e2b85c" : INK}" stroke-width="${r.main ? 5 : 3}"/>
+        <circle cx="${r.x}" cy="${r.y}" r="${Rr-5}" fill="none" stroke="#ecc879" stroke-width="2"/>
+        <circle cx="${r.x}" cy="${r.y}" r="${Rr-10}" fill="none" stroke="#ddd0ee" stroke-width="1.5" stroke-dasharray="2 4"/>
+        <text x="${r.x}" y="${r.y + (r.main ? 11 : 9)}" text-anchor="middle" font-size="${r.main ? 32 : 26}">${r.icon}</text>
+      </g>
+      <g class="ribbon" data-cx="${r.x}" data-y0="${y0}" data-lh="${lh}">
+        ${tail(-1)}${tail(1)}
+        <rect class="label-bg" x="${x0}" y="${y0}" width="${lw}" height="${lh}" rx="3" fill="#fdf8ee" stroke="${INK}" stroke-width="1.8"/>
+        <text x="${r.x}" y="${y0 + 20}" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="700" font-size="20" fill="#221d38">${esc(r.name)}</text>
+      </g>
+      ${r.main ? `<g class="pill" data-cx="${r.x}"><rect x="${r.x-54}" y="${r.y-Rr-33}" width="108" height="24" rx="12" fill="#b0567a" stroke="${INK}" stroke-width="1.5"/><text x="${r.x}" y="${r.y-Rr-15.5}" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="13" fill="#fff" letter-spacing="1">✦ MAIN QUEST</text></g>` : ""}
+      ${done ? `<g><circle cx="${f1(r.x + Rr*.75)}" cy="${f1(r.y - Rr*.75)}" r="10" fill="#6fae86" stroke="#fff" stroke-width="2.5"/><text x="${f1(r.x + Rr*.75)}" y="${f1(r.y - Rr*.75 + 4.5)}" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Nunito">✓</text></g>` : ""}
+    </a>`;
+  }).join("");
+
+  const start = RMAP[store.get("realm-last", "about")] || REGIONS[0];
+  const trail = trailPath(pts);
+  const label = (x, y, t, size=15, rot=0, extra="") =>
+    `<text class="halo" x="${x}" y="${y}" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="700" font-size="${size}" fill="#3f3763" letter-spacing="1.5" ${rot ? `transform="rotate(${rot} ${x} ${y})"` : ""} ${extra}>${t}</text>`;
+
+  svg.insertAdjacentHTML("beforeend", `
+    <defs>
+      <clipPath id="landClip"><path d="${land}"/></clipPath>
+      <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+      <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+      </filter>
+      <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="3" seed="8" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="34" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="4"/>
+      </filter>
+      <filter id="grain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/>
+        <feColorMatrix values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .5  0 0 0 .22 0"/>
+        <feComposite in2="SourceGraphic" operator="in"/>
+      </filter>
+      <radialGradient id="seaGrad" cx="50%" cy="48%" r="65%">
+        <stop offset="0%" stop-color="#cbe6f3"/><stop offset="60%" stop-color="#a9d0e8"/><stop offset="100%" stop-color="#86b2d6"/>
+      </radialGradient>
+      <radialGradient id="landGrad" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#fdf9ee"/><stop offset="75%" stop-color="#f7eedb"/><stop offset="100%" stop-color="#efe0c2"/>
+      </radialGradient>
+      <radialGradient id="medalFill" cx="40%" cy="35%" r="70%">
+        <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f3ecf8"/>
+      </radialGradient>
+      <radialGradient id="vignette" cx="50%" cy="50%" r="72%">
+        <stop offset="72%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#4f4673" stop-opacity=".3"/>
+      </radialGradient>
+      <mask id="ripple1"><path d="${land}" fill="none" stroke="#fff" stroke-width="40"/><path d="${land}" fill="none" stroke="#000" stroke-width="36.5"/></mask>
+      <mask id="ripple2"><path d="${land}" fill="none" stroke="#fff" stroke-width="72"/><path d="${land}" fill="none" stroke="#000" stroke-width="69"/></mask>
+      <mask id="ripple3"><path d="${land}" fill="none" stroke="#fff" stroke-width="108"/><path d="${land}" fill="none" stroke="#000" stroke-width="105.5"/></mask>
+      <path id="seaArc" d="M300 56 Q500 22 700 56"/>
+    </defs>
+
+    <!-- SEA -->
+    <rect width="1000" height="650" fill="url(#seaGrad)"/>
+    <path d="${land}" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="64" stroke-linejoin="round"/>
+    <path d="${land}" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="30" stroke-linejoin="round"/>
+    <rect width="1000" height="650" fill="#fff" opacity=".75" mask="url(#ripple1)"/>
+    <rect width="1000" height="650" fill="#fff" opacity=".5" mask="url(#ripple2)"/>
+    <rect width="1000" height="650" fill="#fff" opacity=".3" mask="url(#ripple3)"/>
+    <g data-sea="1" class="waves">${waves}</g>
+    ${[[60,40],[300,95],[690,92],[960,250],[30,470],[560,628],[975,420],[140,200]].map(([x,y],i) =>
+      `<text class="map-twinkle" style="animation-delay:${i*.4}s" x="${x}" y="${y}" font-size="13" fill="#fff">✦</text>`).join("")}
+
+    <!-- LAND -->
+    <path id="land" d="${land}" fill="url(#landGrad)"/>
+    <g clip-path="url(#landClip)">
+      <path d="${land}" fill="none" stroke="#ead7b0" stroke-width="18" opacity=".9"/>
+      <g filter="url(#watercolor)" opacity=".75">
+        <ellipse cx="215" cy="510" rx="100" ry="62" fill="#cfe6b4"/>
+        <ellipse cx="478" cy="540" rx="150" ry="62" fill="#b5d9a6"/>
+        <ellipse cx="815" cy="495" rx="95" ry="62" fill="#d4eabc"/>
+        <ellipse cx="612" cy="262" rx="105" ry="68" fill="#f6d7c6"/>
+        <ellipse cx="818" cy="165" rx="95" ry="58" fill="#e3d6f3"/>
+        <ellipse cx="310" cy="270" rx="140" ry="55" fill="#e4def2"/>
+        <ellipse cx="740" cy="395" rx="80" ry="40" fill="#e4def2"/>
+        <ellipse cx="470" cy="175" rx="70" ry="38" fill="#c3e0b0"/>
+      </g>
+      <rect width="1000" height="650" fill="#fff" filter="url(#grain)"/>
+    </g>
+    <path d="${land}" fill="none" stroke="${INK}" stroke-width="3" stroke-linejoin="round" filter="url(#rough)"/>
+    ${tufts}
+
+    <!-- river & lake -->
+    <path d="M760 402 C735 425 705 440 690 456" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+    <path d="M664 496 C672 530 648 562 676 612" fill="none" stroke="${INK}" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+    <path d="M760 402 C735 425 705 440 690 456" fill="none" stroke="#a9d0e8" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M664 496 C672 530 648 562 676 612" fill="none" stroke="#a9d0e8" stroke-width="7.5" stroke-linecap="round"/>
+    <ellipse id="lake" cx="660" cy="470" rx="58" ry="30" fill="#a9d0e8" stroke="${INK}" stroke-width="2"/>
+    <text x="660" y="476" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="700" font-size="17" fill="#2f3f78" id="lakeName">Lake Debug</text>
+
+    <!-- road -->
+    <path d="${trail}" fill="none" stroke="#c9b993" stroke-width="12" stroke-linecap="round" opacity=".75"/>
+    <path d="${trail}" fill="none" stroke="#fbf3e2" stroke-width="7" stroke-linecap="round"/>
+    <path d="${trail}" fill="none" stroke="#a596c4" stroke-width="2.6" stroke-linecap="round" class="trail"/>
+
+    ${deco}
+
+    <!-- terrain names -->
+    ${label(330,192,"Moonpeak Range",18)}
+    ${label(362,478,"Sunlit Meadows",16)}
+    ${label(478,594,"Whispering Woods",17)}
+    ${label(592,412,"Wandering Plains",16)}
+
+    <!-- SEA FUN -->
+    <text class="halo-sea" font-family="Cormorant Garamond, serif" font-weight="700" font-size="30" fill="#2f3f78" letter-spacing="5">
+      <textPath href="#seaArc" startOffset="50%" text-anchor="middle">THE SEA OF SYNTAX</textPath></text>
+    ${serpent(90,150)}
+    ${boat(930,62)}
+    ${cloud(225,52,.6)}${cloud(965,180,.6)}${cloud(40,330,.55)}
+    ${compassRose(74,570)}
+
+    ${REGIONS.filter(r => r.main).map(r => magicCircle(r.x, r.y)).join("")}
+    ${nodes}
+
+    <!-- hero token -->
+    <g id="hero" style="transform:translate(${start.x}px, ${heroY(start)}px)" aria-hidden="true">
+      <g class="bob">
+        <circle class="glow" r="20" fill="#fff3c9" opacity=".8" filter="url(#soft)"/>
+        <circle r="11" fill="#fffaf0" stroke="#ecc879" stroke-width="2.5"/>
+        <text y="4" text-anchor="middle" font-family="Cormorant Garamond" font-weight="700" font-size="11" fill="#6a5a8c">${esc(ADVENTURER.initials || "✦")}</text>
+        <path d="M0 13 Q-4 22 0 30 Q4 22 0 13" fill="#fff3c9" opacity=".85"/>
+      </g>
+    </g>
+    <rect width="1000" height="650" fill="url(#vignette)" pointer-events="none"/>
+    ${frameBorder()}
+  `);
+
+  fitMapLabels();
+  svg.addEventListener("click", e => {
+    const a = e.target.closest("a.node[data-region]"); if (!a) return;
+    e.preventDefault(); travelTo(a.dataset.region);
+  });
+  svg.addEventListener("keydown", e => {
+    const a = e.target.closest("a.node[data-region]");
+    if (a && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); travelTo(a.dataset.region); }
+  });
+}
+
+/* size every label box to its text, with even padding on both sides */
+function fitMapLabels(){
+  const svg = document.getElementById("worldMap");
+  if (!svg || svg.closest("[hidden]")) return;
+  svg.querySelectorAll("g.ribbon").forEach(g => {
+    const t = g.querySelector("text"), rect = g.querySelector("rect.label-bg");
+    const cx = +g.dataset.cx, y0 = +g.dataset.y0, lh = +g.dataset.lh;
+    const w = Math.ceil(t.getBBox().width) + 44, x0 = cx - w/2;
+    rect.setAttribute("x", x0); rect.setAttribute("width", w);
+    [[-1, ".tail-l"], [1, ".tail-r"]].forEach(([side, sel]) => {
+      const xa = side < 0 ? x0 - 13 : x0 + w + 13, xb = side < 0 ? x0 + 8 : x0 + w - 8, notch = side < 0 ? xa + 6 : xa - 6;
+      g.querySelector(sel).setAttribute("d", `M${xb} ${y0+6} L${xa} ${y0+6} L${notch} ${y0+6+lh/2} L${xa} ${y0+6+lh} L${xb} ${y0+6+lh} Z`);
+    });
+  });
+  svg.querySelectorAll("g.pill").forEach(g => {
+    const t = g.querySelector("text"), rect = g.querySelector("rect"), cx = +g.dataset.cx;
+    const w = Math.ceil(t.getBBox().width) + 30;
+    rect.setAttribute("x", cx - w/2); rect.setAttribute("width", w);
+  });
+  const lake = svg.querySelector("#lake"), name = svg.querySelector("#lakeName");
+  if (lake && name){ const need = name.getBBox().width / 2 + 16; if (+lake.getAttribute("rx") < need) lake.setAttribute("rx", Math.ceil(need)); }
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitMapLabels);
+
+const heroY = r => r.y - (r.main ? 100 : 58);
+let travelling = false;
+function travelTo(id){
+  const r = RMAP[id]; if (!r || travelling) return;
+  const hero = document.getElementById("hero");
+  if (reduceMotion){ location.hash = id; return; }
+  travelling = true;
+  hero.style.transform = `translate(${r.x}px, ${heroY(r)}px)`;
+  setTimeout(() => { travelling = false; location.hash = id; }, 700);
+}
+
+function renderFastTravel(){
+  document.getElementById("fastTravel").innerHTML = REGIONS.map(r => `
+    <a class="ft" href="#${r.id}">
+      <span class="icon" aria-hidden="true">${r.icon}</span>
+      <span><b>${esc(r.name)}</b><span>${esc(r.blurb)}</span></span>
+      ${visited.has(r.id) ? `<span class="check" aria-label="visited">✓</span>` : ""}
+    </a>`).join("");
+}
+
+/* ---------------------------------------------------------------
+   SUB-PAGES
+   --------------------------------------------------------------- */
+function renderTopnav(active){
+  document.getElementById("topnav").innerHTML = REGIONS.map(r =>
+    `<a class="chip" href="#${r.id}" ${r.id === active ? 'aria-current="page"' : ""}>${r.icon} ${esc(r.name)}</a>`).join("");
+}
+
+function renderGuildCard(){
+  const a = ADVENTURER, L = a.links || {};
+  const avatar = a.photo && safeUrl(a.photo) ? `<img src="${esc(a.photo)}" alt="Photo of ${esc(a.name)}">`
+    : esc(a.initials || a.name.split(" ").map(w => w[0]).join("").slice(0,2));
+  document.getElementById("guildCard").innerHTML = `
+    <div class="ribbon">✧ Traveler's Papers ✧</div>
+    <div class="avatar">${avatar}</div>
+    <h2>${esc(a.name)}</h2>
+    <p class="class">${esc(a.title)}</p>
+    <div class="level">
+      ${a.level ? `<span>⭐ ${esc(a.level)}</span>` : ""}
+      ${a.location ? `<span>📍 ${esc(a.location)}</span>` : ""}
+      ${a.relocation ? `<span>✈️ Open to relocation</span>` : ""}
+    </div>
+    ${a.lookingFor ? `<div class="status"><span class="dot"></span>${esc(a.lookingFor)}</div>` : ""}
+    <p style="font-size:14.5px;margin:0 0 6px">${esc(a.bio)}</p>
+    <div class="links">${linkButtons(L)}</div>
+    ${L.email ? `<div class="contact-text">${esc(L.email)}</div>` : ""}`;
+  wireCopy();
+}
+
+function linkButtons(L){
+  return `
+    ${L.github ? `<a class="btn" href="${esc(safeUrl(L.github))}" target="_blank" rel="noopener">${ICONS.github} GitHub</a>` : ""}
+    ${L.linkedin ? `<a class="btn" href="${esc(safeUrl(L.linkedin))}" target="_blank" rel="noopener">${ICONS.linkedin} LinkedIn</a>` : ""}
+    ${L.resume ? `<a class="btn primary full" href="${esc(safeUrl(L.resume))}" target="_blank" rel="noopener">📜 View Résumé</a>` : ""}
+    ${L.email ? `<button class="btn full copy-email" type="button">✉️ Copy email</button>` : ""}`;
+}
+function wireCopy(){
+  document.querySelectorAll(".copy-email").forEach(b => {
+    if (b.dataset.wired) return; b.dataset.wired = 1;
+    b.addEventListener("click", async () => {
+      const email = ADVENTURER.links.email;
+      try { await navigator.clipboard.writeText(email); b.textContent = "✅ Email copied!"; }
+      catch { b.textContent = "📋 " + email; }
+      setTimeout(() => b.innerHTML = "✉️ Copy email", 2200);
+    });
+  });
+}
+
+function renderStory(){
+  const a = ADVENTURER;
+  document.getElementById("story").innerHTML = `
+    <h3>🌿 Where it all began</h3>
+    ${(a.story || []).map(p => `<p>${esc(p)}</p>`).join("")}
+    ${a.facts?.length ? `<div class="facts">${a.facts.map(f => `<div class="fact"><b>${esc(f.label)}</b>${esc(f.value)}</div>`).join("")}</div>` : ""}
+    <div class="section-label">Where to next?</div>
+    <div class="tags" style="gap:8px">
+      <a class="btn" href="#journey">🧭 See my journey</a>
+      <a class="btn primary" href="#quests">⚔️ Browse my projects</a>
+    </div>`;
+}
+
+function renderTimeline(){
+  document.getElementById("timeline").innerHTML = JOURNEY.slice().sort((a,b) => String(a.start || "").localeCompare(String(b.start || ""))).map(j => {
+    const [ic, label] = KIND[j.kind] || ["📍", ""];
+    return `<article class="stop parchment">
+      <span class="marker" aria-hidden="true">${ic}</span>
+      ${label ? `<span class="kind tag">${label}</span>` : ""}
+      <div class="when">${esc(j.when)}</div>
+      <h3>${esc(j.title)}</h3>
+      <div class="where">${esc(j.org)}</div>
+      ${j.points?.length ? `<ul>${j.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+    </article>`;
+  }).join("") + `<article class="stop"><span class="marker" aria-hidden="true">❓</span>
+     <div class="parchment" style="padding:16px 20px"><h3 style="font-family:'Cormorant Garamond';font-weight:700;font-size:24px;margin:0">Next chapter: your team?</h3>
+     <a class="btn primary" href="#tavern" style="margin-top:10px">🏮 Let's talk</a></div></article>`;
+}
+
+function renderSkills(){
+  const used = {};
+  QUESTS.filter(q => q.status !== "planned").forEach(q => (q.tags || []).forEach(t => used[t] = (used[t] || 0) + 1));
+  document.getElementById("tree").innerHTML = Object.entries(ADVENTURER.skills || {}).map(([group, g]) => {
+    const list = Array.isArray(g) ? g : g.list || [];
+    const icon = Array.isArray(g) ? "✨" : g.icon || "✨";
+    return `<div class="parchment branch">
+      <h3><span aria-hidden="true">${icon}</span>${esc(group)}</h3>
+      <div class="skill-list">${list.map(s => {
+        const n = used[s] || 0;
+        return `<button class="skill" type="button" data-skill="${esc(s)}" ${n ? "" : "disabled"}>
+          <span>${esc(s)}</span><small>${n ? `${n} quest${n > 1 ? "s" : ""} →` : ""}</small></button>`;
+      }).join("")}</div></div>`;
+  }).join("");
+  document.getElementById("tree").addEventListener("click", e => {
+    const b = e.target.closest(".skill[data-skill]"); if (!b || b.disabled) return;
+    setTag(b.dataset.skill); location.hash = "quests";
+  });
+}
+
+function renderTrophies(){
+  document.getElementById("trophies").innerHTML = ACHIEVEMENTS.map(a => `
+    <div class="parchment trophy">
+      <div class="icon" aria-hidden="true">${esc(a.icon)}</div>
+      <b>${esc(a.title)}</b><span>${esc(a.detail)}</span>
+      ${a.note ? `<p>${esc(a.note)}</p>` : ""}
+    </div>`).join("");
+}
+
+function renderTavern(){
+  const a = ADVENTURER, L = a.links || {};
+  document.getElementById("tavern").innerHTML = `
+    <div class="mug" aria-hidden="true">🏮</div>
+    <h3>Leave a letter at the inn</h3>
+    <p>Thank you for wandering this far. I'd love to hear about your team and what you're building.</p>
+    ${L.email ? `<div class="email">${esc(L.email)}</div>` : ""}
+    <div class="actions">${linkButtons(L).replace(/ full/g, "")}</div>
+    ${a.lookingFor ? `<div class="notice">🌙 <b>Currently seeking:</b> ${esc(a.lookingFor)}${a.location ? ` · based in ${esc(a.location)}` : ""}${a.relocation ? `, ${esc(a.relocation.charAt(0).toLowerCase() + a.relocation.slice(1))}` : ""}</div>` : ""}`;
+  wireCopy();
+}
+
+/* ---------------------------------------------------------------
+   QUEST BOARD
+   --------------------------------------------------------------- */
+function renderTallies(){
+  const started = QUESTS.filter(q => q.status !== "planned");
+  const done = started.filter(q => q.status !== "progress").length;
+  const active = started.filter(q => q.status === "progress").length;
+  const planned = QUESTS.length - started.length;
+  const skills = new Set(started.flatMap(q => q.tags || [])).size;
+  document.getElementById("tallies").innerHTML = [["Quests cleared",done],["In progress",active],["Yet to come",planned],["Skills used",skills]]
+    .map(([l,v],i) => `<div class="tally" style="--r:${[-1.5,1,-.6,1.4][i]}deg"><b>${v}</b><span>${l}</span></div>`).join("");
+}
+
+const state = { q:"", status:"all", tag:"all", cat:"all" };
+const CATEGORIES = [["all","All"],["work","💼 Work"],["club","🤝 Clubs"],["hackathon","🏆 Hackathons"],["personal","🌱 Personal projects"]];
+function renderFilters(){
+  const cf = document.getElementById("catFilters");
+  cf.insertAdjacentHTML("beforeend", CATEGORIES.map(([v,l]) => `<button class="chip" type="button" data-cat="${v}" aria-pressed="${v === "all"}">${l}</button>`).join(""));
+  cf.addEventListener("click", e => {
+    const b = e.target.closest("[data-cat]"); if (!b) return;
+    state.cat = b.dataset.cat;
+    cf.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    renderQuests();
+  });
+  const sf = document.getElementById("statusFilters");
+  sf.insertAdjacentHTML("beforeend", [["all","All"],["legendary","⭐ Featured"],["complete","✔ Completed"],["progress","⏳ In progress"],["planned","✨ Yet to come"]]
+    .map(([v,l]) => `<button class="chip" type="button" data-status="${v}" aria-pressed="${v === "all"}">${l}</button>`).join(""));
+  renderTagChips();
+  const tf = document.getElementById("tagFilters");
+  sf.addEventListener("click", e => {
+    const b = e.target.closest("[data-status]"); if (!b) return;
+    state.status = b.dataset.status;
+    sf.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    renderQuests();
+  });
+  tf.addEventListener("click", e => { const b = e.target.closest("[data-tag]"); if (b) setTag(b.dataset.tag); });
+  document.getElementById("search").addEventListener("input", e => { state.q = e.target.value.toLowerCase().trim(); renderQuests(); });
+}
+const FILTER_MAP = Object.fromEntries(SKILL_FILTERS);
+const matchesTag = (q, t) => t === "all" || (FILTER_MAP[t] || [t]).some(x => (q.tags || []).includes(x));
+function renderTagChips(){
+  const tf = document.getElementById("tagFilters");
+  const chips = SKILL_FILTERS.filter(([label]) => QUESTS.some(q => matchesTag(q, label))).map(([label]) => label);
+  const extra = state.tag !== "all" && !FILTER_MAP[state.tag] ? state.tag : null;   // a specific skill picked in the library
+  tf.innerHTML = `<small>Skills</small>` +
+    [["all","All"], ...chips.map(c => [c,c])].map(([v,l]) =>
+      `<button class="chip" type="button" data-tag="${esc(v)}" aria-pressed="${state.tag === v}">${esc(l)}</button>`).join("") +
+    (extra ? `<button class="chip" type="button" data-tag="all" aria-pressed="true" title="Clear this filter">🔎 ${esc(extra)} ✕</button>` : "");
+}
+function setTag(t){
+  state.tag = t;
+  renderTagChips();
+  renderQuests();
+}
+
+const order = { legendary:0, complete:1, progress:2, planned:3 };
+function questCard(q, n){
+  const s = STATUS[q.status] || STATUS.complete, planned = q.status === "planned";
+  return `<div class="quest-wrap">${planned ? `<span class="seal" aria-hidden="true">✦</span>` : `<span class="pin" aria-hidden="true"></span>`}
+    <button class="quest${planned ? " planned" : ""}" type="button" data-i="${q._i}" style="--tilt:${[-2,1.5,-1,2,-1.5,1][n % 6]}deg" aria-label="Open quest: ${esc(q.title)}">
+      <div class="kicker">${esc(q.type)}${q.date ? " · " + esc(q.date) : ""}</div>
+      <h3>${esc(q.title)}</h3>
+      <p class="summary">${esc(q.summary)}</p>
+      ${q.tags?.length ? `<div class="tags">${q.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+      <div class="quest-foot"><span class="badge-status ${s.cls}">${s.label}</span>${planned ? "" : `<span class="reward">read more →</span>`}</div>
+    </button></div>`;
+}
+function renderQuests(){
+  const list = QUESTS.map((q,i) => ({...q, _i:i}))
+    .filter(q => state.status === "all" || q.status === state.status)
+    .filter(q => state.cat === "all" || q.category === state.cat)
+    .filter(q => matchesTag(q, state.tag))
+    .filter(q => !state.q || [q.title,q.type,q.summary,q.objective,...(q.tags||[]),...(q.whatIDid||[]),...(q.plan||[])].join(" ").toLowerCase().includes(state.q))
+    .sort((a,b) => (order[a.status] ?? 4) - (order[b.status] ?? 4));
+  const el = document.getElementById("quests");
+  if (!list.length){ el.innerHTML = `<div class="empty">🍃 No quests found down this path. Try another spell!</div>`; return; }
+  const accepted = list.filter(q => q.status !== "planned"), planned = list.filter(q => q.status === "planned");
+  el.innerHTML = accepted.map(questCard).join("") +
+    (planned.length ? `<div class="board-divider"><h3>✨ Adventures Yet to Come</h3><p>Ideas pinned to the board, waiting for their adventure to begin.</p></div>` + planned.map(questCard).join("") : "");
+}
+
+const overlay = document.getElementById("overlay"), scrollEl = document.getElementById("scroll");
+let lastFocus = null;
+function openQuest(i){
+  const q = QUESTS[i]; if (!q) return;
+  const s = STATUS[q.status] || STATUS.complete, planned = q.status === "planned";
+  lastFocus = document.activeElement;
+  scrollEl.innerHTML = `
+    <button class="close" type="button" aria-label="Close">✕</button>
+    <div class="kicker">${esc(q.type)} · <span class="badge-status ${s.cls}">${s.label}</span></div>
+    <h2 id="mTitle">${esc(q.title)}</h2>
+    <p>${esc(q.summary)}</p>
+    ${q.image && safeUrl(q.image) ? `<img class="shot" src="${esc(q.image)}" alt="Screenshot of ${esc(q.title)}">` : ""}
+    <div class="meta">
+      ${q.role ? `<div><small>Party</small><b>${esc(q.role)}</b></div>` : ""}
+      ${q.duration ? `<div><small>${planned ? "Estimated time" : "Time spent"}</small><b>${esc(q.duration)}</b></div>` : ""}
+      ${q.date ? `<div><small>${planned ? "Starting" : "When"}</small><b>${esc(q.date)}</b></div>` : ""}
+    </div>
+    ${q.objective ? `<h4>🎯 Quest objective</h4><p>${esc(q.objective)}</p>` : ""}
+    ${q.plan?.length ? `<h4>🗺️ The plan</h4><ul>${q.plan.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${q.learn?.length ? `<h4>✨ What I hope to learn</h4><ul class="loot">${q.learn.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${q.whatIDid?.length ? `<h4>⚔️ What I did</h4><ul>${q.whatIDid.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${q.loot?.length ? `<h4>💰 Loot & results</h4><ul class="loot">${q.loot.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${q.tags?.length ? `<h4>🧰 ${planned ? "Equipment I'll bring" : "Equipment"}</h4><div class="tags">${q.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+    <div class="actions">
+      ${planned && !q.github ? `<a class="btn primary" href="#tavern">🏮 Interested? Let's talk</a>` : q.github ? `<a class="btn primary" href="${esc(safeUrl(q.github))}" target="_blank" rel="noopener">${ICONS.github} View the code</a>` : (ADVENTURER.links.github ? `<a class="btn primary" href="${esc(safeUrl(ADVENTURER.links.github))}" target="_blank" rel="noopener">${ICONS.github} See my GitHub</a>` : "")}
+      ${q.demo ? `<a class="btn" href="${esc(safeUrl(q.demo))}" target="_blank" rel="noopener">🚀 Live demo</a>` : ""}
+    </div>`;
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  scrollEl.querySelector(".close").focus();
+  try { history.replaceState(null, "", "#quest-" + i); } catch {}
+}
+function closeQuest(){
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+  try { history.replaceState(null, "", "#quests"); } catch {}
+  if (lastFocus) lastFocus.focus();
+}
+document.getElementById("quests").addEventListener("click", e => { const b = e.target.closest(".quest"); if (b) openQuest(+b.dataset.i); });
+overlay.addEventListener("click", e => { if (e.target === overlay || e.target.closest(".close")) closeQuest(); });
+document.addEventListener("keydown", e => {
+  if (!overlay.classList.contains("open")) return;
+  if (e.key === "Escape") closeQuest();
+  if (e.key === "Tab"){
+    const f = scrollEl.querySelectorAll("a,button"); if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+});
+
+/* ---------------------------------------------------------------
+   ROUTER
+   --------------------------------------------------------------- */
+function route(){
+  let id = location.hash.slice(1) || "map";
+  let questIdx = null;
+  const m = id.match(/^quest-(\d+)$/);
+  if (m){ questIdx = +m[1]; id = "quests"; }
+  if (id !== "map" && !RMAP[id]) id = "map";
+
+  document.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.view !== id);
+  const sub = id !== "map";
+  document.getElementById("subChrome").hidden = !sub;
+  const next = document.getElementById("nextStop");
+  next.hidden = !sub;
+
+  if (sub){
+    const r = RMAP[id];
+    document.getElementById("pageTitle").textContent = `${r.icon} ${r.name}`;
+    document.getElementById("pageLead").textContent = r.lead;
+    renderTopnav(id);
+    const i = REGIONS.indexOf(r), prev = REGIONS[i - 1], nxt = REGIONS[i + 1];
+    next.innerHTML = `${prev ? `<a class="btn" href="#${prev.id}">← ${prev.icon} ${esc(prev.name)}</a>` : `<a class="btn" href="#map">← 🗺️ World map</a>`}
+      ${nxt ? `<a class="btn primary" href="#${nxt.id}">Next stop: ${nxt.icon} ${esc(nxt.name)} →</a>` : `<a class="btn primary" href="#map">Back to the map 🗺️</a>`}`;
+    visited.add(id); store.set("realm-visited", [...visited]); store.set("realm-last", id);
+    document.title = `${r.name} — ${ADVENTURER.name}`;
+  } else {
+    document.title = `The Realm of ${ADVENTURER.name} — Portfolio`;
+    refreshMapState();
+  }
+  if (questIdx !== null) openQuest(questIdx);
+  else if (overlay.classList.contains("open")){ overlay.classList.remove("open"); document.body.style.overflow = ""; }
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+function refreshMapState(){
+  const svg = document.getElementById("worldMap");
+  // rebuild map so visited checkmarks and hero position are current
+  svg.querySelectorAll(":scope > :not(desc)").forEach(n => n.remove());
+  const fresh = svg.cloneNode(true); svg.replaceWith(fresh);   // drop old listeners
+  renderMap(); renderFastTravel();
+}
+
+/* ---------------------------------------------------------------
+   DRIFTING PETALS & SPARKLES
+   --------------------------------------------------------------- */
+function skyFx(){
+  const fx = document.getElementById("skyFx");
+  let html = "";
+  for (let i = 0; i < 14; i++)
+    html += `<span class="twinkle" style="left:${(i*37)%100}%;top:${(i*23)%60}%;animation-delay:${(i*.37)%3}s">✦</span>`;
+  if (!reduceMotion) for (let i = 0; i < 22; i++){
+    const kind = i % 3 ? "petal" : "sparkle";
+    html += `<span class="mote ${kind}" style="left:${(i*47)%100}%;--dx:${(i%2?1:-1)*(40+i*4)}px;animation-duration:${14+(i*7)%12}s;animation-delay:${-(i*1.7)}s"></span>`;
+  }
+  fx.innerHTML = html;
+}
+
+/* ---------------------------------------------------------------
+   BOOT
+   --------------------------------------------------------------- */
+document.getElementById("realmTitle").textContent = `The Realm of ${ADVENTURER.name}`;
+const qr = document.getElementById("quickResume");
+if (ADVENTURER.links.resume) qr.href = safeUrl(ADVENTURER.links.resume); else qr.remove();
+document.getElementById("footer").textContent = `${ADVENTURER.name} · ${ADVENTURER.links.email || ""} · ✧ thank you for traveling with me ✧`;
+skyFx(); renderGuildCard(); renderStory(); renderTimeline(); renderSkills(); renderTrophies(); renderTavern();
+renderTallies(); renderFilters(); renderQuests();
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
